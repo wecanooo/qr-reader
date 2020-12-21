@@ -43,6 +43,7 @@ function Scanner () {
         delay={300}
         onError={handleError}
         onScan={handleScan}
+        facingMode="user"
         style={{ width: '100%' }}
       />
       <p>{data}</p>
