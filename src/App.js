@@ -4,24 +4,25 @@ import { connect } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 import { Button, makeStyles, Link, CssBaseline } from '@material-ui/core';
 import logo from './images/bi_logo.png'
+import Generator from './components/Generator';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     height: '100vh',
     padding: '1rem'
   },
   logo: {
-    marginBottom: '2rem'
+    marginBottom: '1rem'
   },
 }))
 
 function App (props) {
   // const { cid } = props;
+  const [open, setOpen] = React.useState(false)
   const classes = useStyles();
 
   // if (!cid) return <Redirect to="/login" />
@@ -29,7 +30,7 @@ function App (props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <img src={logo} className={classes.logo} alt="logo" width="70%" />
+      <img src={logo} className={classes.logo} alt="logo" width="100%" />
       <Button
         variant="contained"
         color="secondary"
@@ -49,8 +50,9 @@ function App (props) {
         variant="contained"
         color="primary"
         size="large"
-        component={Link}
-        href="/generator"
+        onClick={() => setOpen(true)}
+        // component={Link}
+        // href="/generator"
         style={{
           width: '100%',
           height: '200px',
@@ -59,6 +61,7 @@ function App (props) {
       >
         QR 코드생성
       </Button>
+      <Generator open={open} onClose={() => setOpen(false)} />
     </div>
   );
 }

@@ -29,7 +29,7 @@ import Login from './components/Login';
 import AppClient from './AppClient';
 import AppContext from './AppContext';
 import Scanner from './components/Scanner'
-import Generator from './components/Generator'
+import { NotFound } from './components/Errors';
 
 let appClient;
 AppClient.init({ store });
@@ -44,7 +44,7 @@ ReactDOM.render(
             <Route exact path="/" component={App} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/scanner" component={Scanner} />
-            <Route exact path="/generator" component={Generator} />
+            <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
       </AppContext.Provider>
