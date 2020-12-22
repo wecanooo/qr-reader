@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+    height: '100vh'
   },
   header: {
     padding: '1rem 0',
