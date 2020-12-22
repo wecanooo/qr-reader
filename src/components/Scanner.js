@@ -76,7 +76,7 @@ function Scanner () {
         onError={handleError}
         onScan={handleScan}
         facingMode="user"
-        style={{ width: '60%' }}
+        style={{ width: '100%' }}
       />
       <p>{data}</p>
     </div>
