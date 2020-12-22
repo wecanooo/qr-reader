@@ -19,7 +19,7 @@ import React from 'react';
 import QRCode from 'react-qr-code';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CssBaseline, Divider, IconButton, makeStyles, Typography } from '@material-ui/core';
+import { Divider, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { Refresh } from '@material-ui/icons';
 import FullScreenDialog from './FullScreenDialog';
 
@@ -55,7 +55,8 @@ let   current = 0;
 let   timer = null;
 
 function Generator (props) {
-  const { email, username, cid, open, onClose } = props;
+  // const { email, username, cid, open, onClose } = props;
+  const { open, onClose } = props;
   const [remain, setRemain] = React.useState(INTERVAL)
   const [data, setData] = React.useState('')
   const [expires, setExpires] = React.useState(false)
