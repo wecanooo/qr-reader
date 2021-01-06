@@ -65,7 +65,7 @@ function Scanner () {
       alert('데이터가 올바르지 않습니다. 다시 한번 시도해 주세요.')
     }
 
-    alert(`${values[0]} 님 반갑습니다.`)
+    alert(`${data} 님 반갑습니다.`)
     setData(data)
   }
 
@@ -79,7 +79,6 @@ function Scanner () {
         facingMode="user"
         style={{ width: '100%' }}
       />
-      <p>{data}</p>
     </div>
   );
 }
