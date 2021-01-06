@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Scanner () {
-  const [data, setData] = React.useState('');
+  const [setData] = React.useState('');
   const classes = useStyles();
 
   const handleError = err => {
