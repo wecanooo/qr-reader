@@ -17,7 +17,10 @@
 
 import React from 'react';
 import QrReader from 'react-qr-reader'
+import axios from 'axios'
 import { CssBaseline, makeStyles } from '@material-ui/core';
+
+import { api } from '../config/constants'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,8 +68,30 @@ function Scanner () {
       alert('데이터가 올바르지 않습니다. 다시 한번 시도해 주세요.')
     }
 
-    alert(`${data} 님 반갑습니다.`)
-    setData(data)
+    const params = new URLSearchParams()
+    params.append('userKey', values[0])
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }
+
+    axios.post(`${api.baseUrl}${api.commit}`, params, config)
+      .then(result => {
+        console.log(result)
+        alert(`${values[0]} 님 반갑습니다.`)
+      })
+      .catch(err => {
+        console.log(err)
+
+        alert(`${values[0]} 님 반갑습니다.`)
+        // Do somthing
+      })
+    // const res = await appClient.login(data.emil, data.password)
+
+    alert(`${values[0]} 님 반갑습니다.`)
+    // setData(data)
   }
 
   return (

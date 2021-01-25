@@ -18,19 +18,23 @@
 const initialState = {
   email: null,
   username: null,
-  cid: null
+  cid: null,
+  oid: null,
+  grade: null,
 }
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_AUTH': {
-      const { email, username, cid } = action.payload;
+      const { email, username, cid, oid, grade } = action.payload;
 
       return {
         ...state,
         email,
         username,
-        cid
+        cid,
+        oid,
+        grade
       }
     }
 

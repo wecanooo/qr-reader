@@ -27,7 +27,7 @@ const persistConfig = {
   key: 'root',
   storage: storage,
   stateReconciler: autoMergeLevel2,
-  whitelist: ['settings'],
+  whitelist: ['auth'],
 };
 
 const reduxMiddlewares = [thunk];

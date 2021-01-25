@@ -1,0 +1,44 @@
+{
+  "result": "SUCCESS",
+  "message": "-",
+  "data": {
+    "organizationId": 34,
+    "organizationsDesc": "본사 >유초등전략그룹",
+    "organizationName": "유초등전략그룹",
+    "empName": "이현주_재경",
+    "organizations": [
+      {
+        "organizationId": 34,
+        "parentOrganizationId": 1,
+        "organizationName": "유초등전략그룹",
+        "organizationCode": "B",
+        "isActivated": 1,
+        "phoneNumber": "",
+        "organizationDescription": "",
+        "registeredEmpNumber": 0,
+        "lastUpdatedEmpNumber": 0,
+        "mainEmpNumber": 0,
+        "parentOrganizationName": "본사",
+        "isDeleted": 0,
+        "folder": false,
+        "lazy": false
+      },
+      {
+        "organizationId": 1,
+        "parentOrganizationId": 0,
+        "organizationName": "본사",
+        "organizationCode": "L",
+        "isActivated": 0,
+        "registeredEmpNumber": 0,
+        "lastUpdatedEmpNumber": 0,
+        "mainEmpNumber": 0,
+        "isDeleted": 0,
+        "folder": false,
+        "lazy": false
+      }
+    ],
+    "positionCode": "V1",
+    "empKey": "20200946",
+    "positionCodeName": "관리자"
+  }
+}

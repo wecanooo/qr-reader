@@ -35,17 +35,20 @@ export default class AppClient {
     store = data.store;
   }
 
+  setAuthInfo(email, username, cid, oid, grade) {
+    store.dispatch(authActions.setAuth(email, username, cid, oid, grade));
+  }
 
-  async login(email, password) {
+  async login(login, password) {
     try {
-      const res = await this.sendRequest(api.login, 'POST', { email, password });
+      const res = await this.sendRequest(api.login, 'POST', "application/x-www-form-urlencoded", { login, password });
       store.dispatch(authActions.setAuth(res.email, res.username, res.cid));
     } catch (error) {
       logger.error('getTutors() [error: "%o"]', error);
     }
   }
 
-  async sendRequest(url, method = 'get', data = {}) {
+  async sendRequest(url, method = 'get', content_type = "application/json", data = {}) {
     return new Promise((resolve, reject) => {
       if (!this._server) {
         reject('서버 정보를 찾을 수 없습니다.');
@@ -53,8 +56,8 @@ export default class AppClient {
         axios({
           url: `${api.baseUrl}${url}`,
           headers: {
-            Accept: 'Application/json',
-            'Content-Type': 'application/json',
+            // Accept: 'Application/json',
+            'Content-Type': content_type || 'application/json',
           },
           method: method,
           data: data,
