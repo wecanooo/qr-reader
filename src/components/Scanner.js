@@ -77,6 +77,8 @@ function Scanner () {
       }
     }
 
+    console.log(data)
+
     axios.post(`${api.baseUrl}${api.commit}`, params, config)
       .then(result => {
         console.log(result)

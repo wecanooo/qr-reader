@@ -55,8 +55,7 @@ let   current = 0;
 let   timer = null;
 
 function Generator (props) {
-  const { email, username, cid, open, onClose } = props;
-  // const { open, onClose } = props;
+  const { cid, open, onClose } = props;
   const [remain, setRemain] = React.useState(INTERVAL)
   const [data, setData] = React.useState('')
   const [expires, setExpires] = React.useState(false)
@@ -69,7 +68,7 @@ function Generator (props) {
 
   const generate = async () => {
     const now = Date.now();
-    const qr = `${cid},${username},${email},${now}`
+    const qr = `${cid},${now}`
     current = 0;
 
     setRemain(INTERVAL)
@@ -131,8 +130,6 @@ function Generator (props) {
 }
 
 Generator.propTypes = {
-  email: PropTypes.string,
-  username: PropTypes.string,
   cid: PropTypes.string,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired
@@ -143,8 +140,6 @@ Generator.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-  email: state.auth.email,
-  username: state.auth.username,
   cid: state.auth.cid
 })
 
