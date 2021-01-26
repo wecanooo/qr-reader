@@ -22,8 +22,6 @@ import { useForm } from 'react-hook-form'
 import { makeStyles } from '@material-ui/core'
 import {
   Button,
-  Checkbox,
-  FormControlLabel,
   Grid,
   Paper,
   TextField,
@@ -71,12 +69,12 @@ function Login ({ appClient }) {
   const classes = useStyles()
   const { register, handleSubmit } = useForm()
 
-  const onSubmit = async (data) => {
-    LoginFormValidator.validate(data)
+  const onSubmit = async (formData) => {
+    LoginFormValidator.validate(formData)
       .then(() => {
         const params = new URLSearchParams()
-        params.append('loginId', data.email)
-        params.append('password', data.password)
+        params.append('loginId', formData.email)
+        params.append('password', formData.password)
 
         const config = {
           headers: {
@@ -84,24 +82,30 @@ function Login ({ appClient }) {
           }
         }
 
-        // 실제 데이터 전송
         axios.post(`${api.baseUrl}${api.login}`, params, config)
-          .then(result => {
-            console.log(result)
-          })
-          .catch(err => {
-            // 서버처리에 대한 오류가 발생했을 때
-            // alert(`로그인 처리 중 오류가 발생되었습니다. 관리자에게 문의 바랍니다. 오류: ${err.message}`)
-
-            // TEST 를 위한 코드입니다. 실제 서비스 때는 아래의 구문을 주석해야 합니다.
-            const mock = require('../config/mock/login/success.json')
-            if (data.remember && mock.result === 'SUCCESS') {
-              appClient.setAuthInfo(data.email, mock.data.empName, mock.data.empKey, mock.data.organizationId, mock.data.positionCode)
+          .then(response => {
+            console.log(response.data)
+            const { result, message, data } = response.data
+            if (result === 'FAIL') {
+              alert(message)
+              return;
             }
+
+            const { empName, empKey, organizationId, organizationName, positionCode } = data
+            appClient.setAuthInfo(empName, empKey, organizationId, organizationName, positionCode)
 
             window.location.href ="/"
           })
-        // const res = await appClient.login(data.emil, data.password)
+          .catch(err => {
+            // 서버처리에 대한 오류가 발생했을 때
+            alert(`로그인 처리 중 오류가 발생되었습니다. 관리자에게 문의 바랍니다. 오류: ${err.message}`)
+
+            // TEST 를 위한 코드입니다. 실제 서비스 때는 아래의 구문을 주석해야 합니다.
+            // const mock = require('../config/mock/login/success.json')
+            // if (data.remember && mock.result === 'SUCCESS') {
+            //   appClient.setAuthInfo(data.email, mock.data.empName, mock.data.empKey, mock.data.organizationId, mock.data.positionCode)
+            // }
+          })
       })
       .catch(err => {
         // eslint-disable-next-line no-console
@@ -110,59 +114,54 @@ function Login ({ appClient }) {
   }
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={12} component={Paper} elevation={0} square>
-        <div className={classes.paper}>
-          <img src={logo} className={classes.logo} alt="logo" />
-          <Typography component="h1" variant="h5">
-            키즈라운지 로그인
-          </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              inputRef={register}
-              required
-              fullWidth
-              id="email"
-              label="로그인 아이디"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              inputRef={register}
-              required
-              fullWidth
-              name="password"
-              label="비밀번호"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox color="primary" inputRef={register()} />
-              }
-              label="내 정보 기억하기"
-              name="remember"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              로그인
-            </Button>
-          </form>
-        </div>
+    <div className={classes.container}>
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={12} component={Paper} elevation={0} square>
+          <div className={classes.paper}>
+            <img src={logo} className={classes.logo} alt="logo" />
+            <Typography component="h1" variant="h5">
+              키즈라운지 로그인
+            </Typography>
+            <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                inputRef={register}
+                required
+                fullWidth
+                id="email"
+                label="로그인 아이디"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                inputRef={register}
+                required
+                fullWidth
+                name="password"
+                label="비밀번호"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                로그인
+              </Button>
+            </form>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   )
 }
 

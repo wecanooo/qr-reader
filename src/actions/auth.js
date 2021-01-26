@@ -15,9 +15,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-export const setAuth = (email, username, cid, oid, grade ) => ({
+export const setAuth = (name, cid, oid, org, grade) => ({
   type: 'SET_AUTH',
-  payload: { email, username, cid, oid, grade }
+  payload: { name, cid, oid, org, grade }
 })
 
 export const clear = () => ({
