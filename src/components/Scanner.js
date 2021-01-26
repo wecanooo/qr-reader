@@ -77,18 +77,13 @@ function Scanner () {
       }
     }
 
-    console.log(data)
-
     axios.post(`${api.baseUrl}${api.commit}`, params, config)
       .then(result => {
         console.log(result)
         alert(`${values[0]} 님 반갑습니다.`)
       })
       .catch(err => {
-        console.log(err)
-
         alert(`${values[0]} 님 반갑습니다.`)
-        // Do somthing
       })
     // const res = await appClient.login(data.emil, data.password)
 
