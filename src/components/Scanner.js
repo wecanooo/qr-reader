@@ -57,7 +57,7 @@ function Scanner () {
   const classes = useStyles()
 
   const handleError = err => {
-    alert(`QR 코드가 정상적이지 않습니다. 관리자에게 문의해 주세요. 오류: ${err.message}`)
+    alert(`QR 인식 기능이 정상적이지 않습니다. 관리자에게 문의해 주세요. 오류: ${err.message}`)
   }
 
   const handleScan = data => {
