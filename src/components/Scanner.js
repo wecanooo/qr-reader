@@ -65,12 +65,14 @@ function Scanner () {
 
     const values = data.split(',')
 
-    if (!values[0]) {
+    if (!values[0] || values[0] !== 'kids-lounge') {
       alert('데이터가 올바르지 않습니다. 다시 한번 시도해 주세요.')
+      return
     }
 
     const params = new URLSearchParams()
-    params.append('userKey', values[0])
+    const empKey = values[1]
+    params.append('userKey', empKey)
 
     const config = {
       headers: {
@@ -86,7 +88,7 @@ function Scanner () {
           return;
         }
 
-        setEmpKey(values[0])
+        setEmpKey(empKey)
         setOpen(true)
         setTimeout(() => {
           setOpen(false)

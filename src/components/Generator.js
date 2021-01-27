@@ -68,7 +68,7 @@ function Generator (props) {
 
   const generate = async () => {
     const now = Date.now();
-    const qr = `${cid},${now}`
+    const qr = `kids-lounge,${cid},${now}`
     current = 0;
 
     setRemain(INTERVAL)
