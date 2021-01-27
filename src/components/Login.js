@@ -35,7 +35,6 @@ import logo from '../images/bi_logo.png'
 
 const useStyles = makeStyles(() => ({
   root: {
-    height: '100vh',
     padding: '1.5rem',
     backgroundColor: 'white',
   },
