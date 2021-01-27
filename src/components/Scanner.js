@@ -18,7 +18,7 @@
 import React from 'react';
 import QrReader from 'react-qr-reader'
 import axios from 'axios'
-import { CssBaseline, makeStyles } from '@material-ui/core';
+import { CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, makeStyles } from '@material-ui/core';
 
 import { api } from '../config/constants'
 
@@ -52,11 +52,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Scanner () {
-  // const [setData] = React.useState('');
-  const classes = useStyles();
+  const [open, setOpen] = React.useState(false)
+  const [empKey, setEmpKey] = React.useState('')
+  const classes = useStyles()
 
   const handleError = err => {
-    console.error(err);
+    alert(`QR 코드가 정상적이지 않습니다. 관리자에게 문의해 주세요. 오류: ${err.message}`)
   }
 
   const handleScan = data => {
@@ -78,17 +79,22 @@ function Scanner () {
     }
 
     axios.post(`${api.baseUrl}${api.commit}`, params, config)
-      .then(result => {
-        console.log(result)
-        alert(`${values[0]} 님 반갑습니다.`)
+      .then(response => {
+        const { result, message } = response.data
+        if (result === 'FAIL') {
+          alert(message)
+          return;
+        }
+
+        setEmpKey(values[0])
+        setOpen(true)
+        setTimeout(() => {
+          setOpen(false)
+        }, 2000)
       })
       .catch(err => {
-        alert(`${values[0]} 님 반갑습니다.`)
+        alert(`QR 체크인 처리 중 오류가 발생되었습니다. 관리자에게 문의 바랍니다. 오류: ${err.message}`)
       })
-    // const res = await appClient.login(data.emil, data.password)
-
-    alert(`${values[0]} 님 반갑습니다.`)
-    // setData(data)
   }
 
   return (
@@ -101,6 +107,14 @@ function Scanner () {
         facingMode="user"
         style={{ width: '100%' }}
       />
+      <Dialog open={open}>
+        <DialogTitle id="alert-dialog-title">{`${empKey}님 반갑습니다.`}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            아침미팅 QR 체크인이 정상적으로 처리되었습니다. 오늘 하루도 좋은 하루 되시길 바랍니다. 감사합니다.
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

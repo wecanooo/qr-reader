@@ -25,7 +25,6 @@ import {
   Grid,
   Paper,
   TextField,
-  Typography,
   CssBaseline
 } from '@material-ui/core'
 
@@ -37,13 +36,17 @@ import logo from '../images/bi_logo.png'
 const useStyles = makeStyles(() => ({
   root: {
     height: '100vh',
-    padding: '1rem',
+    padding: '1.5rem',
     backgroundColor: 'white',
   },
   logo: {
-    width: '80%',
-    marginTop: '2rem',
-    marginBottom: '1rem'
+    width: '60%',
+    marginTop: '3rem',
+    marginBottom: '0.5rem'
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
   },
   image: {
     backgroundRepeat: 'no-repeat',
@@ -61,7 +64,9 @@ const useStyles = makeStyles(() => ({
   },
   submit: {
     marginTop: '2rem',
-    padding: '1rem'
+    padding: '1rem',
+    fontWeight: 'bold',
+    backgroundColor: '#576090',
   }
 }));
 
@@ -84,7 +89,6 @@ function Login ({ appClient }) {
 
         axios.post(`${api.baseUrl}${api.login}`, params, config)
           .then(response => {
-            console.log(response.data)
             const { result, message, data } = response.data
             if (result === 'FAIL') {
               alert(message)
@@ -115,14 +119,12 @@ function Login ({ appClient }) {
 
   return (
     <div className={classes.container}>
+      <CssBaseline />
       <Grid container component="main" className={classes.root}>
-        <CssBaseline />
         <Grid item xs={12} component={Paper} elevation={0} square>
           <div className={classes.paper}>
             <img src={logo} className={classes.logo} alt="logo" />
-            <Typography component="h1" variant="h5">
-              키즈라운지 로그인
-            </Typography>
+            <div className={classes.title}>키즈라운지 로그인</div>
             <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 variant="outlined"
