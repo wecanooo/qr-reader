@@ -72,7 +72,10 @@ function Scanner () {
 
     const params = new URLSearchParams()
     const empKey = values[1]
+    const uuid = values[2]
+    console.log(uuid)
     params.append('userKey', empKey)
+    params.append('uuid', uuid)
 
     const config = {
       headers: {
@@ -103,7 +106,7 @@ function Scanner () {
     <div className={classes.root}>
       <CssBaseline />
       <QrReader
-        delay={300}
+        delay={1500}
         onError={handleError}
         onScan={handleScan}
         facingMode="user"
