@@ -75,7 +75,7 @@ function Scanner () {
     const uuid = values[2]
     console.log(uuid)
     params.append('userKey', empKey)
-    params.append('uuid', uuid)
+    params.append('uuId', uuid)
 
     const config = {
       headers: {
