@@ -124,7 +124,7 @@ function Login ({ appClient }) {
           <div className={classes.paper}>
             <img src={logo} className={classes.logo} alt="logo" />
             <div className={classes.title}>키즈라운지 로그인</div>
-            {`${process.env.KIDS_ENV} ${api.baseUrl}`}
+            {`${process.env.NODE_ENV} ${process.env.KIDS_ENV} ${api.baseUrl}`}
             <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 variant="outlined"
