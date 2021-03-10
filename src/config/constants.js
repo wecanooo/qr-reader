@@ -20,8 +20,8 @@ module.exports = {
   logo_blue: require('../images/bi_logo.png'),
   api: {
     monitorUrl: 'https://kr.tutor.com/',
-    baseUrl: process.env.KIDS_ENV !== 'production' ? 'https://qa-lounge.kidsschole.com/' : 'https://lounge.kidsschole.com/',
-    login: process.env.KIDS_ENV !== 'production' ? 'api/emp/login' : 'api/emp/login',
-    commit: process.env.KIDS_ENV !== 'production' ? 'api/emp/qrCheckIn' : 'api/emp/qrCheckIn',
+    baseUrl: process.env.KIDS_ENV === 'production' ? 'https://lounge.kidsschole.com/' : 'https://qa-lounge.kidsschole.com/',
+    login: 'api/emp/login',
+    commit: 'api/emp/qrCheckIn'
   },
 };
