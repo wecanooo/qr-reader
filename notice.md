@@ -28,3 +28,15 @@ $ yarn build 는 React 를 배포환경으로 만들기 위해 실행 (하지만
 
 6. yarn.lock : 무시해도 됨 (yarn install 했을 때 나오는 파일) - git 에 무시하라는 말은 아님
 ```
+
+## 이제부터 React 프로젝트
+
+React 프로젝트의 Root 디렉토리는 src 입니다.
+
+1. 신규 프로젝트 생성
+
+새로운 React 프로젝트는 다음의 명령을 수행하면 됩니다.
+
+```shell
+$ npx create-react-app qr-reader
+```
