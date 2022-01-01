@@ -15,91 +15,96 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-import React from 'react';
-import QRCode from 'react-qr-code';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Divider, IconButton, makeStyles, Typography } from '@material-ui/core';
-import { Refresh } from '@material-ui/icons';
-import FullScreenDialog from './FullScreenDialog';
+import React from "react";
+import QRCode from "react-qr-code";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Divider, IconButton, makeStyles, Typography } from "@material-ui/core";
+import { Refresh } from "@material-ui/icons";
+import FullScreenDialog from "./FullScreenDialog";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    height: '100vh'
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "white",
+    height: "100vh",
   },
   header: {
-    padding: '1rem 0',
-    fontSize: '1rem',
+    padding: "1rem 0",
+    fontSize: "1rem",
     fontWeight: 600,
-    textAlign: 'center'
+    textAlign: "center",
   },
   qr: {
-    margin: '2rem 0'
+    margin: "2rem 0",
   },
   center: {
-    textAlign: 'center'
+    textAlign: "center",
   },
   retry: {
     width: 256,
     height: 256,
     borderRadius: 4,
-    border: 'solid 1px #ccc'
-  }
-}))
+    border: "solid 1px #ccc",
+  },
+}));
 
-const INTERVAL = 15;
-let   current = 0;
-let   timer = null;
+// 재갱신 시간을 15초에서 5초로 변경합니다.
+// 2021.12.02, wecanooo
+const INTERVAL = 5;
+let current = 0;
+let timer = null;
 
-function Generator (props) {
+function Generator(props) {
   const { cid, uuid, open, onClose } = props;
-  const [remain, setRemain] = React.useState(INTERVAL)
-  const [data, setData] = React.useState('')
-  const [expires, setExpires] = React.useState(false)
+  const [remain, setRemain] = React.useState(INTERVAL);
+  const [data, setData] = React.useState("");
+  const [expires, setExpires] = React.useState(false);
   const classes = useStyles();
 
   React.useEffect(() => {
     generate();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   const generate = async () => {
     const now = Date.now();
-    const qr = `kids-lounge,${cid},${uuid},${now}`
+    const qr = `kids-lounge,${cid},${uuid},${now}`;
     current = 0;
 
-    setRemain(INTERVAL)
+    setRemain(INTERVAL);
     setExpires(false);
 
-    setData(qr)
+    setData(qr);
 
-    if (timer !== null) clearInterval(timer)
-    timer = setInterval(checkInterval, 1000)
-  }
+    if (timer !== null) clearInterval(timer);
+    timer = setInterval(checkInterval, 1000);
+  };
 
   const checkInterval = () => {
-    current = current + 1
+    current = current + 1;
     if (current > INTERVAL) {
-      setExpires(true)
-      // generate();
+      // 재시도 버튼이 나오게 하려면 setExpires(true) 를 주석해제 하세요.
+      // 2021.12.02, wecanooo
+      // setExpires(true)
+      // 재시도 없이 자동으로 QR 코드를 재생성 하려면 generate() 를 주석해제 하세요.
+      generate();
     } else {
-      setRemain(prev => prev - 1)
+      setRemain((prev) => prev - 1);
     }
-  }
+  };
 
   const handleRefresh = () => {
-    generate()
-  }
+    generate();
+  };
 
   return (
     <FullScreenDialog
       title="QR 체크인"
       onClose={onClose}
       open={open}
-      bg='transparent'
+      bg="transparent"
     >
       <div className={classes.root}>
         <Divider />
@@ -108,20 +113,23 @@ function Generator (props) {
           <div className={classes.qr}>
             {expires ? (
               <div>
-                <IconButton
-                  onClick={handleRefresh}
-                  className={classes.retry}
-                >
+                <IconButton onClick={handleRefresh} className={classes.retry}>
                   <Refresh />
                 </IconButton>
               </div>
-            ) : <QRCode value={data} />}
+            ) : (
+              <QRCode value={data} />
+            )}
           </div>
           <Typography variant="subtitle1" component="div">
-            {expires ? '인증 시간이 만료되었습니다.' : `${remain} 초 남았습니다.`}
+            {expires
+              ? "인증 시간이 만료되었습니다."
+              : `${remain} 초 남았습니다.`}
           </Typography>
           <Typography variant="caption">
-            {expires ? 'QR코드 스캔을 다시 시도하시려면 [재시도]를 눌러주세요.' : '입장하려는 라운지의 QR 스캐너에 인식시켜 주세요.'}
+            {expires
+              ? "QR코드 스캔을 다시 시도하시려면 [재시도]를 눌러주세요."
+              : "입장하려는 라운지의 QR 스캐너에 인식시켜 주세요."}
           </Typography>
         </div>
       </div>
@@ -133,16 +141,16 @@ Generator.propTypes = {
   cid: PropTypes.string,
   uuid: PropTypes.string,
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
-}
+  onClose: PropTypes.func.isRequired,
+};
 
 Generator.defaultProps = {
-  open: true
-}
+  open: true,
+};
 
 const mapStateToProps = (state) => ({
   cid: state.auth.cid,
-  uuid: state.app.uuid
-})
+  uuid: state.app.uuid,
+});
 
 export default connect(mapStateToProps)(Generator);
