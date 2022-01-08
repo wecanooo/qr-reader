@@ -52,7 +52,9 @@ const useStyles = makeStyles((theme) => ({
 
 // 재갱신 시간을 15초에서 5초로 변경합니다.
 // 2021.12.02, wecanooo
-const INTERVAL = 5;
+// 재갱신 시간을 5초에서 10초로 변경합니다.
+// 2022.01.08, wecanooo
+const INTERVAL = 10;
 let current = 0;
 let timer = null;
 
