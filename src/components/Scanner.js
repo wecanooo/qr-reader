@@ -60,7 +60,9 @@ const useStyles = makeStyles((theme) => ({
 
 // QR 코드 생성 유효시간을 5초로 지정합니다.
 // 2021.12.02, wecanooo
-const INTERVAL = 7;
+// QR 코드 생성 유효시간을 10초로 지정합니다.
+// 2022.01.08, wecanooo
+const INTERVAL = 13;
 
 function Scanner() {
   const [open, setOpen] = React.useState(false);
