@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 // 2021.12.02, wecanooo
 // QR 코드 생성 유효시간을 10초로 지정합니다.
 // 2022.01.08, wecanooo
-const INTERVAL = 13;
+// const INTERVAL = 13;
 
 function Scanner() {
   const [open, setOpen] = React.useState(false);
@@ -88,15 +88,15 @@ function Scanner() {
     const params = new URLSearchParams();
     const empKey = values[1];
     const uuid = values[2];
-    const time = values[3];
+    // const time = values[3];
 
-    const d = new Date();
-    d.setSeconds(d.getSeconds() - INTERVAL);
+    // const d = new Date();
+    // d.setSeconds(d.getSeconds() - INTERVAL);
 
-    if (time === undefined || time < d) {
-      alert("QR 코드의 유효시간이 지났습니다. QR 코드를 갱신해 주세요.");
-      return;
-    }
+    // if (time === undefined || time < d) {
+    //   alert("QR 코드의 유효시간이 지났습니다. QR 코드를 갱신해 주세요.");
+    //   return;
+    // }
 
     params.append("userKey", empKey);
     params.append("uuId", uuid);
